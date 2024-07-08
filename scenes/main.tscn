@@ -1,11 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://ldxyhu3wx7pb"]
+[gd_scene load_steps=12 format=3 uid="uid://ldxyhu3wx7pb"]
 
-[ext_resource type="Texture2D" uid="uid://b2sums8eodtkh" path="res://assets/bg.png" id="1_3qtd4"]
+[ext_resource type="Texture2D" uid="uid://b2sums8eodtkh" path="res://assets/sprites/bg.png" id="1_3qtd4"]
 [ext_resource type="Script" path="res://scripts/main.gd" id="1_7ps6e"]
 [ext_resource type="PackedScene" uid="uid://c0e1n4l13nxor" path="res://scenes/bird.tscn" id="2_6cmln"]
 [ext_resource type="PackedScene" uid="uid://c2euh1m6i5iix" path="res://scenes/pipes.tscn" id="2_p17lf"]
 [ext_resource type="PackedScene" uid="uid://dehpro4h0ub2m" path="res://scenes/ground.tscn" id="4_3ihk3"]
 [ext_resource type="PackedScene" uid="uid://bg8bq1ra13tdc" path="res://scenes/game_over.tscn" id="6_6qxhg"]
+[ext_resource type="FontFile" uid="uid://cx0eecsg2gk0q" path="res://assets/PixelifySans-VariableFont_wght.ttf" id="6_41wxm"]
+[ext_resource type="AudioStream" uid="uid://bnfwypivvu8wy" path="res://assets/sfx/point.wav" id="7_djywl"]
+[ext_resource type="AudioStream" uid="uid://brl5p2iojie3l" path="res://assets/sfx/wing.wav" id="8_cntog"]
+[ext_resource type="AudioStream" uid="uid://v8567a7fuhfq" path="res://assets/sfx/hit.wav" id="9_sfi7d"]
+[ext_resource type="AudioStream" uid="uid://btc1122xn5b4u" path="res://assets/sfx/die.wav" id="11_anvpp"]
 
 [node name="Main" type="Node"]
 script = ExtResource("1_7ps6e")
@@ -32,14 +37,32 @@ z_index = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -34.5
-offset_right = 34.5
-offset_bottom = 23.0
+offset_left = -11.5
+offset_top = 100.0
+offset_right = 11.5
+offset_bottom = 149.0
 grow_horizontal = 2
+theme_override_fonts/font = ExtResource("6_41wxm")
 theme_override_font_sizes/font_size = 40
-text = "SCORE: 0"
+text = "0"
 
 [node name="GameOver" parent="." instance=ExtResource("6_6qxhg")]
+
+[node name="ScoreSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_djywl")
+bus = &"SFX"
+
+[node name="FlapSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_cntog")
+bus = &"SFX"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_sfi7d")
+bus = &"SFX"
+
+[node name="FallSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_anvpp")
+bus = &"SFX"
 
 [connection signal="body_entered" from="Ground" to="." method="_on_ground_body_entered"]
 [connection signal="hit" from="Ground" to="." method="_on_ground_hit"]
