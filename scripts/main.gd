@@ -43,7 +43,7 @@ func new_game() -> void:
 	get_tree().call_group("Pipes", "queue_free")
 	pipes.clear()
 	
-	score_label.text = "SCORE: " + str(score)
+	score_label.text = str(score)
 	
 	game_over_canvas.hide()
 	generate_pipes()
@@ -121,7 +121,7 @@ func bird_hit():
 func score_increase():
 	score_sound.play()
 	score += 1
-	score_label.text = "SCORE: " + str(score)
+	score_label.text = str(score)
 
 func _on_ground_hit():
 	if !death_sound_played:
