@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://c2euh1m6i5iix"]
 
 [ext_resource type="Script" path="res://scripts/pipes.gd" id="1_d7chf"]
-[ext_resource type="Texture2D" uid="uid://cge04t3q2xu32" path="res://assets/pipe.png" id="1_q4w12"]
+[ext_resource type="Texture2D" uid="uid://cge04t3q2xu32" path="res://assets/sprites/pipe.png" id="1_q4w12"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_shj0v"]
 size = Vector2(78, 36)
@@ -16,7 +16,7 @@ size = Vector2(78, 36)
 size = Vector2(72, 524)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3w5h3"]
-size = Vector2(78, 198)
+size = Vector2(60, 198)
 
 [node name="Pipes" type="Area2D" groups=["Pipes"]]
 script = ExtResource("1_d7chf")
