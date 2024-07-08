@@ -1,10 +1,14 @@
 extends Node
 
 @onready var bird = $Bird
+@onready var death_sound = $DeathSound
+@onready var fall_sound = $FallSound
+@onready var flap_sound = $FlapSound
 @onready var game_over_canvas = $GameOver
 @onready var ground = $Ground
 @onready var input_timer = $InputTimer
 @onready var score_label = $ScoreLabel
+@onready var score_sound = $ScoreSound
 @onready var pipe_timer = $PipeTimer
 
 @export var pipe_scene : PackedScene
@@ -13,6 +17,8 @@ const PIPE_DELAY : int = 100
 const PIPE_RANGE : int = 200
 const SCROLL_SPEED : int = 2
 
+var death_sound_played : bool
+var fall_sound_played : bool
 var game_running : bool
 var game_over : bool
 var ground_height : int
@@ -27,6 +33,8 @@ func _ready():
 	new_game()
 
 func new_game() -> void:
+	death_sound_played = false
+	fall_sound_played = false
 	game_running = false
 	game_over = false
 	scroll = 0
@@ -63,6 +71,7 @@ func _process(delta):
 			else:
 				if bird.flying:
 					bird.flap()
+					flap_sound.play()
 					check_top()
 		
 	if game_running:  
@@ -90,21 +99,36 @@ func generate_pipes():
 
 func check_top():
 	if bird.position.y < 0:
+		if !death_sound_played:
+			death_sound.play()
+			death_sound_played = true
 		bird.falling = true
 		stop_game()
 
 func bird_hit():
+	if !death_sound_played:
+		death_sound.play()
+		death_sound_played = true
+
 	bird.falling = true
+
+	if bird.falling && !fall_sound_played:
+		fall_sound.play()
+		fall_sound_played = true
+
 	stop_game()
 
 func score_increase():
+	score_sound.play()
 	score += 1
 	score_label.text = "SCORE: " + str(score)
 
 func _on_ground_hit():
+	if !death_sound_played:
+		death_sound.play()
+		death_sound_played = true
 	bird.falling = false
 	stop_game()
-
 
 func _on_game_over_restart():
 	new_game()
